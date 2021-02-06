@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="testdb">
+
+
+	<!-- 검색 히스토리 -->
+	<insert id="insertKeyword" parameterType="hashmap">
+		insert into keyword_history
+		(	keyword,user_info,  user_ip)
+		values 
+		(  #{keyword}, #{userInfo}, #{userIP})
+	</insert>
+	
+	
+	<!--통합 테스트  1교시형 -->	
+	<select id="getExamData0"  resultType="ExamData">
+<![CDATA[   	 	
+		SELECT  S.turn as turnExam, S.class as classExam, S.TYPE as typeExam, S.title as titleExam, S.pkg as pkgExam
+		FROM 
+		(
+			(
+					SELECT 	a.turn, a.class, a.TYPE, a.title, 'real' AS pkg
+					FROM real_exam a,
+						(
+						SELECT turn FROM real_exam
+						GROUP BY turn
+						ORDER BY turn *1 desc
+						LIMIT 10
+						) b
+					WHERE b.turn = a.turn			
+					AND class <>'컴시응'
+					AND type LIKE '1_%'							
+			)				
+			UNION ALL		
+			(
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_1' AS pkg
+				FROM kpc_exam a,
+					(
+					SELECT turn FROM kpc_exam
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 10
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'		
+			)
+			UNION ALL
+			(	
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_2' AS pkg
+				FROM kpc_exam_2 a,
+					(
+					SELECT turn FROM kpc_exam_2
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 5
+					) b
+				WHERE b.turn = a.turn
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+				AND TYPE  IN ( '1_1', '2_1', '3_1', '4_1','5_1')
+			)
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'ilifo' AS pkg
+				FROM ilifo_exam a,
+					(
+					SELECT turn FROM ilifo_exam
+					GROUP BY turn
+					ORDER BY orderby desc
+					LIMIT 5
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'lyzeum' AS pkg
+				FROM lyzeum_exam a,
+					(
+					SELECT turn FROM lyzeum_exam
+					GROUP BY turn
+					ORDER BY orderby desc
+					LIMIT 4
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+		) S
+		ORDER BY RAND()
+		LIMIT 13
+
+ ]]>	 	
+	</select>	 
+	
+	
+	<!--통합 테스트 2교시형 -->	
+	<select id="getExamData00"  resultType="ExamData">
+<![CDATA[   	 	
+		SELECT  S.turn as turnExam, S.class as classExam, S.TYPE as typeExam, S.title as titleExam,  S.pkg as pkgExam
+		FROM 
+		(
+			(
+					SELECT 	a.turn, a.class, a.TYPE, a.title, 'real' AS pkg
+					FROM real_exam a,
+						(
+						SELECT turn FROM real_exam
+						GROUP BY turn
+						ORDER BY turn *1 desc
+						LIMIT 10
+						) b
+					WHERE b.turn = a.turn			
+					AND class <>'컴시응'
+					AND type not LIKE '1_%'
+					AND type not LIKE '0%'
+					AND title NOT LIKE '%(응용)%'		
+			)				
+			UNION ALL		
+			(
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_1' AS pkg
+				FROM kpc_exam a,
+					(
+					SELECT turn FROM kpc_exam
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 10
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'		
+			)
+			UNION ALL
+			(	
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_2' AS pkg
+				FROM kpc_exam_2 a,
+					(
+					SELECT turn FROM kpc_exam_2
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 5
+					) b
+				WHERE b.turn = a.turn
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+				AND TYPE not IN ( '1_1', '2_1', '3_1', '4_1','5_1')
+			)
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'ilifo' AS pkg
+				FROM ilifo_exam a,
+					(
+					SELECT turn FROM ilifo_exam
+					GROUP BY turn
+					ORDER BY orderby desc
+					LIMIT 5
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+			
+				
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'lyzeum' AS pkg
+				FROM lyzeum_exam a,
+					(
+					SELECT turn FROM lyzeum_exam
+					GROUP BY turn
+					ORDER BY orderby desc
+					LIMIT 4
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+		) S
+		ORDER BY RAND()
+		LIMIT 6
+
+ ]]>	 	
+	</select>
+	
+	 
+	 
+	<!-- 기출 test -->
+	<select id="getExamDataTest"   resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from real_exam
+		where 1=1 		
+
+		<foreach collection="keywordTitieArray"  open="and ("  close=")" separator="and" > title like '%#{keywordTitieArray}%'	</foreach>
+
+		<foreach collection="keywordTurnArray" open="and ("  close=")" separator="and" >  turn like '%$keywordTurnArray[]$%' </foreach>
+ 
+		 order by turn*1 desc, classExam, typeExam*1
+		limit 75
+	</select>
+	
+	<!-- 기출 -->
+	<select id="getExamData" parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from real_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+	
+
+		 order by turn*1 desc, classExam, typeExam*1
+		limit 75
+	</select>
+	
+	<!-- kpc 합숙 -->
+	<select id="getExamData2"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from kpc_exam_2
+		where 1=1 		
+		
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+ 
+		order by binary(turn) desc	,  type
+		limit 12
+	</select>
+	
+	<!-- kpc 모의고사-->
+	<select id="getExamData3"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from kpc_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+        
+ 		 order by binary(turn) desc, class, type
+		limit 78
+	</select>
+	
+	
+	<!-- 아이리포 모의고사-->
+	<select id="getExamData4"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from ilifo_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+        
+        
+ 		order by orderby desc , turn*1 desc	 ,type		
+		limit 41
+	</select>
+	
+	<!--플립 모의고사-->	
+	<select id="getExamData5"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from flip_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+        		
+ 		order by ORDERby DESC, turn*1 desc		
+		limit 41
+	</select>
+	
+	<!--Jump Up Day-->	
+	<select id="getExamData6"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from jud_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+         		
+ 		order by date_format(in_date, '%Y%m%d' ) desc,turn*1 desc				
+		limit 77
+	</select>
+	
+	<!--라이지움 모의고사-->	
+	<select id="getExamData7"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from lyzeum_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+        		
+ 		order by turn desc		
+		limit 41
+	</select>
+	
+	
+
+
+</mapper>
