@@ -3,10 +3,15 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
 
 <configuration> 
+
+
 	<typeAliases>
 		<typeAlias alias="ExamData" type="com.itpe.myapp.search.model.ExamData" />		
 		
 	</typeAliases>
+	
+	
+
 
 
 </configuration>
