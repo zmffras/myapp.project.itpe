@@ -17,6 +17,7 @@
     <appender name="rollingFile"
         class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="C:/dev/log/ITPE.log" />
+        <!-- <param name="File" value="/app/log/ITPE.log" /> -->
         <param name="Append" value="true" /> <!-- param name="MaxFileSize" value="100MB"/ --> <!-- param name="MaxBackupIndex" value="2"></param -->
         <!-- 최대 생성 파일수 ( 50개가 넘으면 순차적으로 파일이 삭제됨 -->
 		<param name="MaxBackupIndex" value="50" />
@@ -31,6 +32,7 @@
         class="org.apache.log4j.DailyRollingFileAppender">
         <param name="Threshold" value="ERROR" />
         <param name="File" value="C:/dev/log/ITPEerrorLog.log" />
+        <!-- <param name="File" value="/app/log/ITPEerrorLog.log" /> -->
         <param name="Append" value="true" /> <!-- param name="MaxFileSize" value="100MB"/ --> <!-- param name="MaxBackupIndex" value="2"></param -->
         <param name="MaxBackupIndex" value="50" />
         <param name="DatePattern" value="'.'yyyy-MM-dd" />

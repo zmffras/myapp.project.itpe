@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="testdb">
+<mapper namespace="SearchExam">
 
 
 	<!-- 검색 히스토리 -->
@@ -68,7 +68,7 @@
 				FROM ilifo_exam a,
 					(
 					SELECT turn FROM ilifo_exam
-					GROUP BY turn
+					GROUP BY turn,orderby
 					ORDER BY orderby desc
 					LIMIT 5
 					) b
@@ -84,7 +84,7 @@
 				FROM lyzeum_exam a,
 					(
 					SELECT turn FROM lyzeum_exam
-					GROUP BY turn
+					GROUP BY turn,orderby
 					ORDER BY orderby desc
 					LIMIT 4
 					) b
@@ -159,7 +159,7 @@
 				FROM ilifo_exam a,
 					(
 					SELECT turn FROM ilifo_exam
-					GROUP BY turn
+					GROUP BY turn,orderby
 					ORDER BY orderby desc
 					LIMIT 5
 					) b
@@ -176,7 +176,7 @@
 				FROM lyzeum_exam a,
 					(
 					SELECT turn FROM lyzeum_exam
-					GROUP BY turn
+					GROUP BY turn,orderby
 					ORDER BY orderby desc
 					LIMIT 4
 					) b
