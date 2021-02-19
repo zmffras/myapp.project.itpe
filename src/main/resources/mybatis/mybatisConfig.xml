@@ -4,14 +4,10 @@
 
 <configuration> 
 
-
 	<typeAliases>
-		<typeAlias alias="ExamData" type="com.itpe.myapp.search.model.ExamData" />		
+		<typeAlias alias="ExamData" type="com.itpe.myapp.search.model.ExamData" />	
 		
 	</typeAliases>
 	
 	
-
-
-
 </configuration>

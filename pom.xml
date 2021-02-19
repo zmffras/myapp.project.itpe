@@ -194,7 +194,63 @@
 			<scope>test</scope>
 		</dependency>        
 	</dependencies>
+	
+	<!-- 배포 경로 -->
+	<profiles>
+		<profile>
+			<id>loc</id>
+			<properties>
+				<env>loc</env>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<env>dev</env>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>real</id>
+			<properties>
+				<env>real</env>
+			</properties>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
+	
+	
     <build>
+    	<resources>
+    		<!-- <resource>
+    			<directory>src/main/resources/config_loc</directory>
+    		</resource> -->
+    		<resource>
+    			<directory>src/main/resources/config_${env}</directory>
+    			<filtering>true</filtering>
+    		</resource>
+    		<resource>
+    			<directory>src/main/resources</directory>
+    			<excludes>	<!-- maven 빌드시 환경설정이 되어 있어 중볻되는 환경설정은 제거 -->
+    				<exclude>config_loc/*</exclude>
+    				<exclude>config_real/*</exclude>
+    			</excludes>
+    		</resource>
+    		<resource>
+    			<directory>src/main/java</directory>
+    			<includes>	<!-- java 빌드시 xml를 제외 하는 문제 해결 -->
+    				<include>.xml</include>
+    			</includes>
+    		</resource>
+    	</resources>
+        
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>

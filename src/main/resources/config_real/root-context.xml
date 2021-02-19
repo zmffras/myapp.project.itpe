@@ -12,21 +12,16 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	
-
-
-	
+		
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">	    
-	     <!--
+	     <!-- 초기설정
 	    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
 	    <property name="url" value="jdbc:mysql://localhost:3307/dmpe?useSSL=false&amp;serverTimezone=UTC" />	    
 	    -->	    
-	    	    
+	    	    	
+	   	<!-- log4j와 DB 연동 위한 설정  -->
 	    <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 	    <property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3307/dmpe?useSSL=false&amp;serverTimezone=UTC" />	    
-
-	    <!-- <property name="url" value=" bc:log4c:mysql://127.0.0.1:3307/dmpe?allowPublicKeyRetrieval=true&amp;useSSL=false&amp;serverTimezone=UTC" /> --> 
-
 	    <property name="username" value="root"></property>
 	    <property name="password" value="kjm"></property>
 	</bean>
@@ -37,7 +32,6 @@
 		<property name="dataSource" ref="dataSource" />
 		<!-- <property name="configLocation" value="classpath:/mybatis/mybatisConfig.xml" /> -->
 		<property name="configLocation" value="classpath:/mybatis/mybatisConfig.xml" />
-		<!-- <property name="mapperLocations" value="classpath:/mybatis/testdb.xml" /> -->
         <property name="mapperLocations" value="classpath:com/itpe/myapp/**/*.xml" />
 														   
 	</bean>

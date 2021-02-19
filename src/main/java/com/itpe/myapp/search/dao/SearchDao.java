@@ -25,10 +25,10 @@ public class SearchDao {
 
 		try {
 			session.insert("SearchExam.insertKeyword", keywordUserInfo);
-			System.out.println("good");
+			//System.out.println("good");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("bad");
+			//System.out.println("bad");
 			return false;
 		}
 		return true;

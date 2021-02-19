@@ -7,19 +7,31 @@
 		and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<!-- <param-value>/WEB-INF/spring/root-context.xml</param-value> -->
+		<!-- <param-value>classpath:config_${env}/root-context.xml</param-value> -->
+		<param-value>classpath:**/root-context.xml</param-value>
 	</context-param>
+	
+	
+	<!-- log4j 경로 변경 가능하게 해주는 리스너 -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>		
+	</listener>
 	
 	<context-param>
         <param-name>log4jConfigLocation</param-name>
-		<param-value>classpath:/main/resources/log4j.xml</param-value>
-  
-    </context-param> 
+			<!-- <param-value>classpath:config_loc/log4j.xml</param-value> 초기 설정 환경 -->
+			<param-value>classpath:/log4j.xml</param-value> 
+<!-- 			<param-value>classpath:/main/resources/config_loc/log4j.xml</param-value>
+ -->								   	
+		<!-- <param-value>classpath:config_${env}/log4j.xml</param-value>  local 환경 -->
+		<!-- <param-value>classpath:**/log4j.xml</param-value>  local 환경 -->							
+    </context-param>
+     
 
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>				
 	</listener>
 
 	<!-- Processes application requests -->

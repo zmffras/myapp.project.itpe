@@ -30,26 +30,11 @@ public class SearchService {
 	
 	boolean examTest = false;
 	
-	public boolean keywordValidation(String rawKeyword) {		
-		if (rawKeyword.length() > 100) {
-			System.out.println("[" + dateFormat.format(date) + "] 키워드 길이 제어");
-			return false;
-		}
-		
-		if ((rawKeyword == null) || (rawKeyword == "")) {
-			System.out.println("[" + dateFormat.format(date) + "] 키워드 누락");
-			return false;
-		}		
-		return true;
-	}
-	
 	// 키워드 포맷 정리
 	public String keywordFormat(String rawKeyword) {
 		
 		String keyword;
-		
-		//keywordValidation(rawKeyword);
-		
+				
 		// 특수문자 및 연속 스페이스 제거
 		keyword = CommonUtil.continueSpaceRemove(CommonUtil.StringReplace(rawKeyword)); 
 		
@@ -63,7 +48,7 @@ public class SearchService {
 	public ModelAndView selectExamDataNew(String rawKeyword, String userInfo, String userIP) {
 		
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
+		mav.setViewName("search");
 
 		if (rawKeyword.length() > 100) {
 			System.out.println("[" + dateFormat.format(date) + "] 키워드 길이 제어");

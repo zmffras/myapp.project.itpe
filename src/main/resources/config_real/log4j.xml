@@ -16,9 +16,16 @@
 	<!-- 날짜별 로그 파일 생성 -->
     <appender name="rollingFile"
         class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="C:/dev/log/ITPE.log" />
-        <!-- <param name="File" value="/app/log/ITPE.log" /> -->
-        <param name="Append" value="true" /> <!-- param name="MaxFileSize" value="100MB"/ --> <!-- param name="MaxBackupIndex" value="2"></param -->
+        
+        <!-- 로컬 -->
+        <!-- <param name="File" value="C:/dev/log/ITPE.log" /> -->
+        
+        <!-- 운영서버 -->
+	   	<param name="File" value="/app/log/ITPE.log" />
+        
+        <param name="Append" value="true" /> 
+        <!-- param name="MaxFileSize" value="100MB"/ --> 
+        <!-- param name="MaxBackupIndex" value="2"></param -->
         <!-- 최대 생성 파일수 ( 50개가 넘으면 순차적으로 파일이 삭제됨 -->
 		<param name="MaxBackupIndex" value="50" />
         <param name="DatePattern" value="'.'yyyy-MM-dd" />
@@ -31,9 +38,16 @@
     <appender name="errFile"
         class="org.apache.log4j.DailyRollingFileAppender">
         <param name="Threshold" value="ERROR" />
-        <param name="File" value="C:/dev/log/ITPEerrorLog.log" />
-        <!-- <param name="File" value="/app/log/ITPEerrorLog.log" /> -->
-        <param name="Append" value="true" /> <!-- param name="MaxFileSize" value="100MB"/ --> <!-- param name="MaxBackupIndex" value="2"></param -->
+        
+        <!-- 로컬 -->
+        <!-- <param name="File" value="C:/dev/log/ITPEerrorLog.log" /> -->
+      	
+      	<!-- 운영서버 -->
+      	<param name="File" value="/app/log/ITPEerrorLog.log" />
+      	
+        <param name="Append" value="true" /> 
+        <!-- param name="MaxFileSize" value="100MB"/ --> 
+        <!-- param name="MaxBackupIndex" value="2"></param -->
         <param name="MaxBackupIndex" value="50" />
         <param name="DatePattern" value="'.'yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
@@ -93,10 +107,10 @@
 
 	<!-- Root Logger -->
 	<root>
-		<!-- <priority value="warn" />
+		<!-- 초기설정 <priority value="warn" />
 		<appender-ref ref="console" /> -->
 		
-		<priority value="debug" />
+		<priority value="warn" />
         <appender-ref ref="console" />
         <appender-ref ref="rollingFile" />
         <appender-ref ref="errFile" />
