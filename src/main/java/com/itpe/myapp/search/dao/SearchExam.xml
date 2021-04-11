@@ -397,6 +397,31 @@
 		limit 41
 	</select>
 	
+	<!--라이지움 모의고사-->	
+	<select id="getExamData8"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from itpe_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+        		
+ 		order by turn desc		
+		limit 41
+	</select>
 	
 
 

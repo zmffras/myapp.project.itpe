@@ -7,7 +7,7 @@
 <!-- <link rel="stylesheet" type="text/css" href="resources/css/main.css"> -->
 <%-- <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.7.1.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/client.min.js"></script> --%>
-<script type="text/javascript" src="resources/js/jquery-1.7.1.js"></script>
+<script type="text/javascript" src="resources/js/jquery-3.5.1.min.js"></script>
 <script type="text/javascript" src="resources/js/client.min.js"></script>
 </head>
 
@@ -311,6 +311,31 @@
 			</table>
 		</c:if>
 		
+		<c:if test="${not empty examDataList8}">
+			<br />
+			<table class="demo01 type06">
+				
+				<th style="text-align:center; font-weight:bold;"> ITPE 모의고사 </th>
+				<c:forEach var="test" items="${examDataList8}" varStatus="status">
+					<c:if test="${status.index%2==1}">
+						<tr>
+							<th style="text-align:center; vertical-align: middle">${test.turnExam} ${test.classExam} ${test.typeExam}</th>
+							<td	onClick="window.open('/impe/files/4.ITPE/${test.turnExam}/${test.typeExam}.pdf'); ">
+								${test.titleExam}</td>
+						</tr>
+
+					</c:if>
+					<c:if test="${status.index%2 == 0}">
+						<tr>
+							<th class="even" style="text-align:center; vertical-align: middle">${test.turnExam} ${test.classExam} ${test.typeExam}</th>
+							<td  class="even"	onClick="window.open('/impe/files/4.ITPE/${test.turnExam}/${test.typeExam}.pdf');">
+							${test.titleExam}</td>
+						</tr>
+					</c:if>
+
+				</c:forEach>
+			</table>
+		</c:if>
 
 		
 		<c:if test="${not empty examDataList4}">

@@ -246,7 +246,7 @@
     		<resource>
     			<directory>src/main/java</directory>
     			<includes>	<!-- java 빌드시 xml를 제외 하는 문제 해결 -->
-    				<include>.xml</include>
+    				<include>**/*.xml</include>
     			</includes>
     		</resource>
     	</resources>

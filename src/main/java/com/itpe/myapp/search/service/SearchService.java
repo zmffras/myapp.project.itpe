@@ -87,6 +87,7 @@ public class SearchService {
 		List<ExamData> examDataList5 = searchDao.selectExamDataNew5(keywordMap);	// 플립 모의고사
 		List<ExamData> examDataList6 = searchDao.selectExamDataNew6(keywordMap);	// JUD
 		List<ExamData> examDataList7 = searchDao.selectExamDataNew7(keywordMap);	// 라이지움 모의고사
+		List<ExamData> examDataList8 = searchDao.selectExamDataNew8(keywordMap);	// ITPE 모의고사
 				
 		mav.addObject("examDataList", examDataList);
 		mav.addObject("examDataList2", examDataList2);
@@ -95,6 +96,7 @@ public class SearchService {
 		mav.addObject("examDataList5", examDataList5);
 		mav.addObject("examDataList6", examDataList6);
 		mav.addObject("examDataList7", examDataList7);
+		mav.addObject("examDataList8", examDataList8);
 		
 		return mav;
 	}
