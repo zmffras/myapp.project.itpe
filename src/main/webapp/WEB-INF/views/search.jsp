@@ -76,6 +76,11 @@
 									${test.titleExam}
 								</td>
 							</c:if>
+							<c:if test="${test.pkgExam eq'itpe'}">
+								<td	onClick="window.open('/impe/files/4.ITPE/${test.turnExam}/${test.typeExam}.pdf'); ">
+									${test.titleExam}
+								</td>
+							</c:if>
 							
 						</tr>
 
@@ -115,6 +120,11 @@
 							</c:if>
 							<c:if test="${test.pkgExam eq'jud'}">
 								<td class="even"	onClick="window.open('/impe/files/0.KPC/KPC_JUD/${test.turnExam}/${test.typeExam}.pdf'); ">
+									${test.titleExam}
+								</td>
+							</c:if>
+							<c:if test="${test.pkgExam eq'itpe'}">
+								<td class="even"	onClick="window.open('/impe/files/4.ITPE/${test.turnExam}/${test.typeExam}.pdf'); ">
 									${test.titleExam}
 								</td>
 							</c:if>
@@ -172,6 +182,11 @@
 									${test.titleExam}
 								</td>
 							</c:if>
+							<c:if test="${test.pkgExam eq'itpe'}">
+								<td	onClick="window.open('/impe/files/4.ITPE/${test.turnExam}/${test.typeExam}.pdf'); ">
+									${test.titleExam}
+								</td>
+							</c:if>
 						</tr>
 
 					</c:if>
@@ -210,6 +225,11 @@
 							</c:if>
 							<c:if test="${test.pkgExam eq'jud'}">
 								<td class="even" 	onClick="window.open('/impe/files/0.KPC/KPC_JUD/${test.turnExam}/${test.typeExam}.pdf'); ">
+									${test.titleExam}
+								</td>
+							</c:if>
+							<c:if test="${test.pkgExam eq'itpe'}">
+								<td class="even" 	onClick="window.open('/impe/files/4.ITPE/${test.turnExam}/${test.typeExam}.pdf'); ">
 									${test.titleExam}
 								</td>
 							</c:if>
