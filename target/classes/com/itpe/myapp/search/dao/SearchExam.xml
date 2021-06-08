@@ -54,7 +54,7 @@
 					SELECT turn FROM kpc_exam_2
 					GROUP BY turn
 					ORDER BY turn desc
-					LIMIT 5
+					LIMIT 6
 					) b
 				WHERE b.turn = a.turn
 				AND class <>'응용'
@@ -70,7 +70,7 @@
 					SELECT turn FROM ilifo_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 5
+					LIMIT 6
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE = '1'
@@ -86,7 +86,22 @@
 					SELECT turn FROM lyzeum_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 4
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'itpe' AS pkg
+				FROM itpe_exam a,
+					(
+					SELECT turn FROM itpe_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 6
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE = '1'
@@ -145,7 +160,7 @@
 					SELECT turn FROM kpc_exam_2
 					GROUP BY turn
 					ORDER BY turn desc
-					LIMIT 5
+					LIMIT 6
 					) b
 				WHERE b.turn = a.turn
 				AND class <>'응용'
@@ -161,7 +176,7 @@
 					SELECT turn FROM ilifo_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 5
+					LIMIT 6
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE <> '1'
@@ -178,13 +193,31 @@
 					SELECT turn FROM lyzeum_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 4
+					LIMIT 5
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'itpe' AS pkg
+				FROM itpe_exam a,
+					(
+					SELECT turn FROM itpe_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 6
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE <> '1'
 				AND class <>'응용'
 				AND title NOT LIKE '%(응용)%'
 			)	
+			
+			
 		) S
 		ORDER BY RAND()
 		LIMIT 6
@@ -397,6 +430,31 @@
 		limit 41
 	</select>
 	
+	<!--라이지움 모의고사-->	
+	<select id="getExamData8"  parameterType="Map" resultType="ExamData">
+		select inx as idx
+				, turn as turnExam
+				, class as classExam
+				, type as typeExam
+				, title as titleExam
+		from itpe_exam
+		where 1=1 		
+
+		<foreach item="keyword" collection="keywordTitieList" index="index"  open="AND" separator="AND" close="">
+            title LIKE '%' #{keyword} '%'
+        </foreach>
+
+		<foreach item="keyword2" collection="keywordTurnList" index="index"  open="AND" separator="AND" close="">
+            turn LIKE '%' #{keyword2} '%'
+        </foreach>
+      
+        <foreach item="keyword3" collection="keywordTitieNotList" index="index"  open="AND" separator="AND" close="">
+            title not LIKE '%' #{keyword3} '%'
+        </foreach>
+        		
+ 		order by turn desc		
+		limit 41
+	</select>
 	
 
 
