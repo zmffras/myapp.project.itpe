@@ -76,6 +76,16 @@ public class SearchDao {
 	public List<ExamData> selectExamData00(HashMap<String, List<String>> keywordMap) {
 		return session.selectList("SearchExam.getExamData00", keywordMap);
 	}
+	
+	// 1교시형 문제
+	public List<ExamData> selectExamData0_2(HashMap<String, List<String>> keywordMap) {
+		return session.selectList("SearchExam.getExamData0_2", keywordMap);
+	}
+
+	// 2교시형 문제
+	public List<ExamData> selectExamData00_2(HashMap<String, List<String>> keywordMap) {
+		return session.selectList("SearchExam.getExamData00_2", keywordMap);
+	}
 
 
 

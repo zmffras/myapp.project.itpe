@@ -225,6 +225,218 @@
  ]]>	 	
 	</select>
 	
+	<!--통합 테스트  1교시형 -->	
+	<select id="getExamData0_2"  resultType="ExamData">
+<![CDATA[   	 	
+		SELECT  S.turn as turnExam, S.class as classExam, S.TYPE as typeExam, S.title as titleExam, S.pkg as pkgExam
+		FROM 
+		(
+			(
+					SELECT 	a.turn, a.class, a.TYPE, a.title, 'real' AS pkg
+					FROM real_exam a,
+						(
+						SELECT turn FROM real_exam
+						GROUP BY turn
+						ORDER BY turn *1 desc
+						LIMIT 10
+						) b
+					WHERE b.turn = a.turn			
+					AND class <>'컴시응'
+					AND type LIKE '1_%'							
+			)				
+			UNION ALL		
+			(
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_1' AS pkg
+				FROM kpc_exam a,
+					(
+					SELECT turn FROM kpc_exam
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 10
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'		
+			)
+			UNION ALL
+			(	
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_2' AS pkg
+				FROM kpc_exam_2 a,
+					(
+					SELECT turn FROM kpc_exam_2
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+				AND TYPE  IN ( '1_1', '2_1', '3_1', '4_1','5_1')
+			)
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'ilifo' AS pkg
+				FROM ilifo_exam a,
+					(
+					SELECT turn FROM ilifo_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'lyzeum' AS pkg
+				FROM lyzeum_exam a,
+					(
+					SELECT turn FROM lyzeum_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'itpe' AS pkg
+				FROM itpe_exam a,
+					(
+					SELECT turn FROM itpe_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE = '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+		) S
+		ORDER BY RAND()
+		LIMIT 8
+
+ ]]>	 	
+	</select>	 
+	
+	
+	<!--통합 테스트 2교시형 -->	
+	<select id="getExamData00_2"  resultType="ExamData">
+<![CDATA[   	 	
+		SELECT  S.turn as turnExam, S.class as classExam, S.TYPE as typeExam, S.title as titleExam,  S.pkg as pkgExam
+		FROM 
+		(
+			(
+					SELECT 	a.turn, a.class, a.TYPE, a.title, 'real' AS pkg
+					FROM real_exam a,
+						(
+						SELECT turn FROM real_exam
+						GROUP BY turn
+						ORDER BY turn *1 desc
+						LIMIT 10
+						) b
+					WHERE b.turn = a.turn			
+					AND class <>'컴시응'
+					AND type not LIKE '1_%'
+					AND type not LIKE '0%'
+					AND title NOT LIKE '%(응용)%'		
+			)				
+			UNION ALL		
+			(
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_1' AS pkg
+				FROM kpc_exam a,
+					(
+					SELECT turn FROM kpc_exam
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 10
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'		
+			)
+			UNION ALL
+			(	
+				SELECT 	a.turn, a.class, a.TYPE, a.title, 'kpc_2' AS pkg
+				FROM kpc_exam_2 a,
+					(
+					SELECT turn FROM kpc_exam_2
+					GROUP BY turn
+					ORDER BY turn desc
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+				AND TYPE not IN ( '1_1', '2_1', '3_1', '4_1','5_1')
+			)
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'ilifo' AS pkg
+				FROM ilifo_exam a,
+					(
+					SELECT turn FROM ilifo_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+			
+				
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'lyzeum' AS pkg
+				FROM lyzeum_exam a,
+					(
+					SELECT turn FROM lyzeum_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 5
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)
+			
+			UNION ALL
+			(
+			SELECT 	a.turn, a.class, a.TYPE, a.title, 'itpe' AS pkg
+				FROM itpe_exam a,
+					(
+					SELECT turn FROM itpe_exam
+					GROUP BY turn,orderby
+					ORDER BY orderby desc
+					LIMIT 6
+					) b
+				WHERE b.turn = a.turn
+				AND TYPE <> '1'
+				AND class <>'응용'
+				AND title NOT LIKE '%(응용)%'
+			)	
+			
+			
+		) S
+		ORDER BY RAND()
+		LIMIT 4
+
+ ]]>	 	
+	</select>
 	 
 	 
 	<!-- 기출 test -->

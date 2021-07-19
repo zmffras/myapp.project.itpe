@@ -29,6 +29,7 @@ public class SearchService {
 	Date date = new Date();
 	
 	boolean examTest = false;
+	boolean examTest2 = false;
 	
 	// 키워드 포맷 정리
 	public String keywordFormat(String rawKeyword) {
@@ -80,6 +81,17 @@ public class SearchService {
 			return mav;
 		}
 		
+		if( examTest2 != false ){
+			
+			List<ExamData> examDataList0 = searchDao.selectExamData0_2(keywordMap); // 통합 테스트
+			List<ExamData> examDataList00 = searchDao.selectExamData00_2(keywordMap); // 통합 테스트
+			
+			mav.addObject("examDataList0", examDataList0);
+			mav.addObject("examDataList00", examDataList00);
+			
+			return mav;
+		}
+		
 		List<ExamData> examDataList = searchDao.selectExamDataNew(keywordMap);		// 기출문제
 		List<ExamData> examDataList2 = searchDao.selectExamDataNew2(keywordMap);	// kpc 합숙
 		List<ExamData> examDataList3 = searchDao.selectExamDataNew3(keywordMap);	// kpc 모의고사
@@ -115,10 +127,15 @@ public class SearchService {
 		
 		
 		examTest = false;
+		examTest2 = false;
 
 		for(int i =0; i<keywordList.length; i++) {
 			System.out.println("keywordList! : "+keywordList[i]);
-			if (keywordList[i].contains("@test") ) {
+			
+			if (keywordList[i].contains("@test2") ) {
+				examTest2 = true;
+			}
+			else if (keywordList[i].contains("@test") ) {
 				examTest = true;
 			}
 			else if (keywordList[i].contains("@") ) {
