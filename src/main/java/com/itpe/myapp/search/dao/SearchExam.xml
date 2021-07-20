@@ -225,7 +225,7 @@
  ]]>	 	
 	</select>
 	
-	<!--통합 테스트  1교시형 -->	
+	<!--통합 테스트  1교시형 v2 -->	
 	<select id="getExamData0_2"  resultType="ExamData">
 <![CDATA[   	 	
 		SELECT  S.turn as turnExam, S.class as classExam, S.TYPE as typeExam, S.title as titleExam, S.pkg as pkgExam
@@ -238,7 +238,7 @@
 						SELECT turn FROM real_exam
 						GROUP BY turn
 						ORDER BY turn *1 desc
-						LIMIT 10
+						LIMIT 5
 						) b
 					WHERE b.turn = a.turn			
 					AND class <>'컴시응'
@@ -252,7 +252,7 @@
 					SELECT turn FROM kpc_exam
 					GROUP BY turn
 					ORDER BY turn desc
-					LIMIT 10
+					LIMIT 5
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE = '1'
@@ -267,7 +267,7 @@
 					SELECT turn FROM kpc_exam_2
 					GROUP BY turn
 					ORDER BY turn desc
-					LIMIT 6
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND class <>'응용'
@@ -283,7 +283,7 @@
 					SELECT turn FROM ilifo_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 6
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE = '1'
@@ -299,7 +299,7 @@
 					SELECT turn FROM lyzeum_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 6
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE = '1'
@@ -314,7 +314,7 @@
 					SELECT turn FROM itpe_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 6
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE = '1'
@@ -329,7 +329,7 @@
 	</select>	 
 	
 	
-	<!--통합 테스트 2교시형 -->	
+	<!--통합 테스트 2교시형 v2 -->	
 	<select id="getExamData00_2"  resultType="ExamData">
 <![CDATA[   	 	
 		SELECT  S.turn as turnExam, S.class as classExam, S.TYPE as typeExam, S.title as titleExam,  S.pkg as pkgExam
@@ -342,7 +342,7 @@
 						SELECT turn FROM real_exam
 						GROUP BY turn
 						ORDER BY turn *1 desc
-						LIMIT 10
+						LIMIT 5
 						) b
 					WHERE b.turn = a.turn			
 					AND class <>'컴시응'
@@ -358,7 +358,7 @@
 					SELECT turn FROM kpc_exam
 					GROUP BY turn
 					ORDER BY turn desc
-					LIMIT 10
+					LIMIT 5
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE <> '1'
@@ -373,7 +373,7 @@
 					SELECT turn FROM kpc_exam_2
 					GROUP BY turn
 					ORDER BY turn desc
-					LIMIT 6
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND class <>'응용'
@@ -389,7 +389,7 @@
 					SELECT turn FROM ilifo_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 6
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE <> '1'
@@ -406,7 +406,7 @@
 					SELECT turn FROM lyzeum_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 5
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE <> '1'
@@ -422,7 +422,7 @@
 					SELECT turn FROM itpe_exam
 					GROUP BY turn,orderby
 					ORDER BY orderby desc
-					LIMIT 6
+					LIMIT 3
 					) b
 				WHERE b.turn = a.turn
 				AND TYPE <> '1'
